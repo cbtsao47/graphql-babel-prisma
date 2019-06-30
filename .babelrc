@@ -1,0 +1,4 @@
+{
+  "presets": ["@babel/preset-env"]
+  // enable ES6 import syntax
+}
