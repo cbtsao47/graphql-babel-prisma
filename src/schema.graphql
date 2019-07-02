@@ -14,6 +14,10 @@ type Mutation {
   deletePost(id: ID!): Post!
   deleteComment(id: ID!): Comment!
 }
+type Subscription {
+  comment(postId: ID!): Comment!
+  post: Post!
+}
 input UpdateUserInput {
   name: String
   email: String

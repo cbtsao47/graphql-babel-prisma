@@ -14,7 +14,7 @@ const Mutation = {
     users.push(newUser);
     return newUser;
   },
-  createPost: (parent, { data }, { db: { users, posts } }, info) => {
+  createPost: (parent, { data }, { db: { users, posts }, pubsub }, info) => {
     const userExists = users.some(user => user.id === data.author);
     if (!userExists) {
       throw new Error("User not found");
@@ -24,12 +24,15 @@ const Mutation = {
       ...data
     };
     posts.push(newPost);
+    if (data.published) {
+      pubsub.publish("post", { post: newPost });
+    }
     return newPost;
   },
   createComment: (
     parent,
     { data },
-    { db: { users, posts, comments } },
+    { db: { users, posts, comments }, pubsub },
     info
   ) => {
     const userExists = users.some(user => user.id === data.author);
@@ -44,6 +47,9 @@ const Mutation = {
       ...data
     };
     comments.push(newComment);
+    pubsub.publish(`comment ${data.post}`, {
+      comment: newComment
+    });
     return newComment;
   },
   updateUser: (parent, { id, data }, { db }, info) => {
