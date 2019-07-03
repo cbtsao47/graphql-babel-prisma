@@ -1,0 +1,23 @@
+version: "3"
+services:
+  prisma:
+    image: prismagraphql/prisma:1.32-beta
+    restart: always
+    ports:
+      - "4466:4466"
+    environment:
+      PRISMA_CONFIG: |
+        port: 4466
+        # uncomment the next line and provide the env var PRISMA_MANAGEMENT_API_SECRET=my-secret to activate cluster security
+        # managementApiSecret: my-secret
+        databases:
+          default:
+            connector: postgres
+            host: ec2-107-20-185-16.compute-1.amazonaws.com
+            database: db4c9ur6f0ost4
+            user: rtttvgyujspxnr
+            password: f9d7f0e493153ef4c407f26031b4bb448a1a7560758b984ce60d771109735fb3
+            ssl: true
+            rawAccess: true
+            port: '5432'
+            migrations: true
