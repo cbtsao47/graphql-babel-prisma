@@ -7,6 +7,7 @@ import User from "./resolvers/User";
 import Post from "./resolvers/Post";
 import Comment from "./resolvers/Comment";
 import Subscription from "./resolvers/Subscription";
+import "./prisma";
 // 5 Scalar types - a type stores a single value
 // string, boolean, int,float, ID
 // custom types - a type that can be objects,arrays,scalar
