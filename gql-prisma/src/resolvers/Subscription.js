@@ -1,13 +1,11 @@
+import prisma from "../prisma";
+
 // pubsub.asyncIterator sets up the channel to listen to
 // pubsub.publish sets up the channel to publish to
 const Subscription = {
   comment: {
-    subscribe: (parent, { postId }, { pubsub, db: { posts } }, info) => {
-      const post = posts.find(post => post.id === postId && post.published);
-      if (!post) {
-        throw new Error("Post not found");
-      }
-      return pubsub.asyncIterator(`comment ${postId}`);
+    subscribe: (parent, { postId }, { prisma }, info) => {
+      return prisma.subscription.comment(null, info);
     }
   },
   post: {
